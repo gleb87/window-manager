@@ -1,0 +1,51 @@
+      .draggable-window {
+        position: absolute;
+        z-index: 999;
+
+        width: 265px;
+        height: 305px;
+
+        background-color: lightblue;
+        border: 1px solid blue;
+      }
+
+      .draggable-window.focus {
+        border: 2px solid lightblue;
+      }
+
+      .draggable-window.dragging .draggable-window-title {
+        cursor: move;
+      }
+
+      .draggable-window-title {
+        width: 265px;
+        height: 25px;
+
+        cursor: pointer;
+        color: white;
+        background-color: blue;
+        text-align: center;
+        line-height: 25px;
+      }
+
+      .draggable-window-dialog {
+        height: 250px;
+        overflow: auto;
+
+        background-color: white;
+        border: 1px solid blue;
+      }
+
+      .draggable-window-message-form {
+        padding: 2px;
+      }
+
+      .draggable-window-submit {
+        width: 100px;
+        height: 20px;
+      }
+
+      .draggable-window-message {
+        width: 145px;
+        height: 15px;
+      }

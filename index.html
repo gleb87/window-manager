@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/0.9.0/lodash.js"></script>
+    <link type="text/css" rel="stylesheet" href="draggableWindow.css" />
+    <style>
+      html, body {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+    <script src="draggableWindow.js"></script>
+    <script src="windowManager.js"></script>
+
+</head>
+<body>
+
+Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст
+Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст
+Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст
+Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст
+Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст
+Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст Текст
+
+<script type="text/template" id="draggable-window-template">
+  <div class="draggable-window" style="top: 0; left: 0;">
+    <div class="draggable-window-title"><%=title%></div>
+    <div class="draggable-window-dialog"></div>
+    <form class="draggable-window-message-form">
+      <input type+"text" class="draggable-window-message"></input>
+      <input type="submit" class="draggable-window-submit"></input>
+    </form>
+  </div>
+</script>
+
+<script>
+WindowManager.setTemplate($('#draggable-window-template').html());
+
+WindowManager.addWindow({ // создаёт окно по шаблону с заголовком
+  title: "Чат с Петей"    // и показывает его
+});
+
+WindowManager.addWindow({ // ещё одно окно
+  title: "Чат с Машей"
+});
+
+</script>
+
+</body>
+</html>
