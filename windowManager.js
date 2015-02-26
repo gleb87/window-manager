@@ -13,21 +13,27 @@
 				template: template,
 			});
 			win.getElement().appendTo("body");
-			win.setZIndex(900);
-			$(win).on("focus", onFocus)
-			.on("blur", onBlur);
+			
+			$(win).on("focus", onFocus);
 
 			windows.push(win);
 
 			win.setTabindex(windows.length);
+			win.setZIndex(windows.length);
 		}
 	};
 
 	function onFocus() {
-		this.setZIndex(999);
+		var ZIndex = this.getZIndex();
+		pullWindowUp(ZIndex);
 	}
 
-	function onBlur() {
-		this.setZIndex(900);
+	function pullWindowUp(ZIndex) {
+		for (var i = 0; i < windows.length; i++) {
+			var ZIndexI = windows[i].getZIndex();
+			if (ZIndexI > ZIndex) {
+				windows[i].setZIndex(ZIndexI - 1);
+			} else if (ZIndexI == ZIndex) windows[i].setZIndex(windows.length);
+		};
 	}
 })();

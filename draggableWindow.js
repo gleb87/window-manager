@@ -11,12 +11,16 @@ function DraggableWindow(options) {
     }));
 
     elem.on("mousedown", ".draggable-window-title", onTitleDown)
-    .on("mousedown", onWindowDown)
     .on("focus", onWindowFocus)
     .on("blur", onWindowBlur);
 
-    elem.find(".draggable-window-message").add(".draggable-window-submit").on("blur", onMesSubBlur);
+    elem.find(".draggable-window-message")
+    .on("focus", onMesSubFocus)
+    .on("blur", onMesSubBlur);
 
+    elem.find(".draggable-window-submit")
+    .on("focus", onMesSubFocus)
+    .on("blur", onMesSubBlur);
 
     elem.find(".draggable-window-message-form").on("submit", onMessageSubmit);
     elem.find(".draggable-window-title").on("selectstart dragstart", false);
@@ -78,13 +82,18 @@ function DraggableWindow(options) {
       var newTop = y - shiftY;
 
       var titleElem = elem.find(".draggable-window-title");
-      var newRight = newLeft + titleElem.width();
-      var newBottom = newTop + titleElem.height();
+      var newRight = newLeft + elem.outerWidth();
+      var newBottom = newTop + titleElem.outerHeight();
 
-      if (newLeft < 0) newLeft = 0;
-      if (newRight > $(window).width()) newLeft = $(window).width() - titleElem.width() - 2;
-      if (newTop < 0) newTop = 0;
-      if (newBottom > $(window).height()) newTop = $(window).height() - titleElem.height();
+      var windowLeft = window.pageXOffset || document.documentElement.scrollLeft;
+      var windowTop = window.pageYOffset || document.documentElement.scrollTop;
+      var windowRight = windowLeft + document.documentElement.clientWidth;
+      var windowBottom = windowTop + document.documentElement.clientHeight;
+
+      if (newLeft < windowLeft) newLeft = windowLeft;
+      if (newRight > windowRight) newLeft = windowRight - elem.outerWidth();
+      if (newTop < windowTop) newTop = windowTop;
+      if (newBottom > windowBottom) newTop = windowBottom - titleElem.outerHeight();
 
       elem.css({
         left: newLeft + "px",
@@ -113,10 +122,6 @@ function DraggableWindow(options) {
     triggerBlur();
   }
 
-  function onWindowDown() {
-    triggerFocus();
-  }
-
   function triggerFocus() {
     $(self).triggerHandler({
       type: "focus",
@@ -127,6 +132,10 @@ function DraggableWindow(options) {
     $(self).triggerHandler({
       type: "blur",
     });
+  }
+
+  function onMesSubFocus() {
+    triggerFocus();
   }
 
   function onMesSubBlur() {
@@ -145,4 +154,8 @@ function DraggableWindow(options) {
   self.setZIndex = function(index) {
     self.getElement().css("zIndex", index);
   }
+
+  self.getZIndex = function() {
+    return self.getElement().css("zIndex");
+  } 
 }
